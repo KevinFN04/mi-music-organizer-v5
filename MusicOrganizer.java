@@ -170,4 +170,23 @@ public class MusicOrganizer
             addTrack(track);
         }
     }
+    
+    /**
+     * 
+     */
+    public void findInTitle(String busqueda){
+        boolean coincidencias;
+        coincidencias = false;
+
+        for (Track track : tracks) {
+            if(track.getTitle().contains(busqueda)) {
+                System.out.println(track.getTitle());
+                coincidencias = true;
+            }
+        }
+
+        if (!coincidencias) {
+            System.out.println("No se encontraron resultados");
+        }
+    }
 }
