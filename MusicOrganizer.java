@@ -28,7 +28,7 @@ public class MusicOrganizer
         System.out.println("Music library loaded. " + getNumberOfTracks() + " tracks.");
         System.out.println();
     }
-    
+
     /**
      * Add a track file to the collection.
      * @param filename The file name of the track to be added.
@@ -37,7 +37,7 @@ public class MusicOrganizer
     {
         tracks.add(new Track(filename));
     }
-    
+
     /**
      * Add a track to the collection.
      * @param track The track to be added.
@@ -46,21 +46,26 @@ public class MusicOrganizer
     {
         tracks.add(track);
     }
-    
+
     /**
      * Play a track in the collection.
      * @param index The index of the track to be played.
      */
     public void playTrack(int index)
     {
-        if(indexValid(index)) {
-            Track track = tracks.get(index);
-            player.startPlaying(track.getFilename());
-            System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
-            track.incrementoReprod();
+        if (player.getIsPlaying() == false){
+            if(indexValid(index)) {
+                Track track = tracks.get(index);
+                player.startPlaying(track.getFilename());
+                System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
+                track.incrementoReprod();
+            }
+        }
+        else{
+            System.out.println("Error! Se esta reproduciendo otra canción en este momento!");
         }
     }
-    
+
     /**
      * Return the number of tracks in the collection.
      * @return The number of tracks in the collection.
@@ -69,7 +74,7 @@ public class MusicOrganizer
     {
         return tracks.size();
     }
-    
+
     /**
      * List a track from the collection.
      * @param index The index of the track to be listed.
@@ -80,7 +85,7 @@ public class MusicOrganizer
         Track track = tracks.get(index);
         System.out.println(track.getDetails());
     }
-    
+
     /**
      * Show a list of all the tracks in the collection.
      */
@@ -93,7 +98,7 @@ public class MusicOrganizer
         }
         System.out.println();
     }
-    
+
     /**
      * List all tracks by the given artist.
      * @param artist The artist's name.
@@ -106,7 +111,7 @@ public class MusicOrganizer
             }
         }
     }
-    
+
     /**
      * Remove a track from the collection.
      * @param index The index of the track to be removed.
@@ -117,7 +122,7 @@ public class MusicOrganizer
             tracks.remove(index);
         }
     }
-    
+
     /**
      * Play the first track in the collection, if there is one.
      */
@@ -128,7 +133,7 @@ public class MusicOrganizer
             tracks.get(0).incrementoReprod();
         }
     }
-    
+
     /**
      * Stop the player.
      */
@@ -148,7 +153,7 @@ public class MusicOrganizer
         // The return value.
         // Set according to whether the index is valid or not.
         boolean valid;
-        
+
         if(index < 0) {
             System.out.println("Index cannot be negative: " + index);
             valid = false;
@@ -162,7 +167,7 @@ public class MusicOrganizer
         }
         return valid;
     }
-    
+
     private void readLibrary(String folderName)
     {
         ArrayList<Track> tempTracks = reader.readTracks(folderName, ".mp3");
@@ -172,7 +177,7 @@ public class MusicOrganizer
             addTrack(track);
         }
     }
-    
+
     /**
      * Metodo para buscar una cadena de caracteres en los titulos de las canciones.
      */
@@ -191,7 +196,7 @@ public class MusicOrganizer
             System.out.println("No se encontraron resultados");
         }
     }
-    
+
     /**
      * Metodo para asignarle un album a una cancion del organizador.
      */
@@ -200,7 +205,7 @@ public class MusicOrganizer
             tracks.get(index).setAlbum(newAlbum);
         }
     }
-    
+
     /**
      * Metodo que muestra si se esta reproduciendo una canción.
      */
