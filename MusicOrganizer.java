@@ -191,4 +191,13 @@ public class MusicOrganizer
             System.out.println("No se encontraron resultados");
         }
     }
+    
+    /**
+     * Metodo para asignarle un album a una cancion del organizador.
+     */
+    public void setAlbumToTrack(int index, String newAlbum){
+        if(tracks.size() > 0) {
+            tracks.get(index).setAlbum(newAlbum);
+        }
+    }
 }

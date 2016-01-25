@@ -15,6 +15,8 @@ public class Track
     private String filename;
     // Las veces que se ha reproducido el track.
     private int count;
+    // Guarda el disco o album de la canción.
+    private String album;
     
     /**
      * Constructor for objects of class Track.
@@ -26,6 +28,7 @@ public class Track
     {
         setDetails(artist, title, filename);
         this.count = 0;
+        this.album = "Desconocido";
     }
     
     /**
@@ -72,7 +75,7 @@ public class Track
      */
     public String getDetails()
     {
-        return artist + ": " + title + "  (file: " + filename + ") Nº de reproducciones: " +count;
+        return artist + ": " + title + "  (file: " + filename + ") Album: " + album + "Nº de reproducciones: " +count;
     }
     
     /**
@@ -100,5 +103,19 @@ public class Track
      */
     public void resetReprod(){
         count = 0;
+    }
+    
+    /**
+     * Metodo para cambiar el Album de la canción.
+     */
+    public void setAlbum(String newAlbum){
+        album = newAlbum;
+    }
+    
+    /**
+     * Metodo para cambiar el Album de la canción.
+     */
+    public String getAlbum(){
+        return album;
     }
 }
