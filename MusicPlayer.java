@@ -28,6 +28,7 @@ public class MusicPlayer
     public MusicPlayer()
     {
         player = null;
+        isPlaying = false;
     }
 
     /**
