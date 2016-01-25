@@ -14,11 +14,14 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  * @author David J. Barnes and Michael Kölling.
  * @version 2011.07.31
  */
+
 public class MusicPlayer
 {
     // The current player. It might be null.
     private AdvancedPlayer player;
-    
+    // Guarda el valor true si se esta reproduciendo una cancion y false cuando no lo este.
+    private boolean isPlaying;
+
     /**
      * Constructor for objects of class MusicFilePlayer
      */
@@ -26,7 +29,7 @@ public class MusicPlayer
     {
         player = null;
     }
-    
+
     /**
      * Play a part of the given file.
      * The method returns once it has finished playing.
@@ -42,10 +45,10 @@ public class MusicPlayer
             reportProblem(filename);
         }
         finally {
-            killPlayer();
+            killPlayer();        
         }
     }
-    
+
     /**
      * Start playing the given audio file.
      * The method returns once the playing has been started.
@@ -56,31 +59,34 @@ public class MusicPlayer
         try {
             setupPlayer(filename);
             Thread playerThread = new Thread() {
-                public void run()
-                {
-                    try {
-                        player.play(5000);
+                    public void run()
+                    {
+                        try {
+                            isPlaying = true;
+                            player.play(5000);
+                        }
+                        catch(JavaLayerException e) {
+                            reportProblem(filename);
+                        }
+                        finally {
+                            isPlaying = false;
+                            killPlayer();
+                        }
                     }
-                    catch(JavaLayerException e) {
-                        reportProblem(filename);
-                    }
-                    finally {
-                        killPlayer();
-                    }
-                }
-            };
+                };
             playerThread.start();
         }
         catch (Exception ex) {
             reportProblem(filename);
         }
     }
-    
+
     public void stop()
     {
+        isPlaying = false;
         killPlayer();
     }
-    
+
     /**
      * Set up the player ready to play the given file.
      * @param filename The name of the file to play.
@@ -108,10 +114,10 @@ public class MusicPlayer
      * @return An input stream for the file.
      */
     private InputStream getInputStream(String filename)
-        throws IOException
+    throws IOException
     {
         return new BufferedInputStream(
-                    new FileInputStream(filename));
+            new FileInputStream(filename));
     }
 
     /**
@@ -120,7 +126,7 @@ public class MusicPlayer
      * @return An audio device.
      */
     private AudioDevice createAudioDevice()
-        throws JavaLayerException
+    throws JavaLayerException
     {
         return FactoryRegistry.systemRegistry().createAudioDevice();
     }
@@ -137,7 +143,7 @@ public class MusicPlayer
             }
         }
     }
-    
+
     /**
      * Report a problem playing the given file.
      * @param filename The file being played.
@@ -147,4 +153,10 @@ public class MusicPlayer
         System.out.println("There was a problem playing: " + filename);
     }
 
+    /**
+     * Metodo que te devuelve si esta reproduciendose(true) o no(false).
+     */
+    public boolean getIsPlaying(){
+        return isPlaying;
+    }
 }

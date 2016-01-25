@@ -200,4 +200,16 @@ public class MusicOrganizer
             tracks.get(index).setAlbum(newAlbum);
         }
     }
+    
+    /**
+     * Metodo que muestra si se esta reproduciendo una canción.
+     */
+    public void isPlaying(){
+        if (player.getIsPlaying() == true){
+            System.out.println("Se esta reproduciendo una canción.");
+        }
+        else{
+            System.out.println("No se esta reproduciendo una canción.");
+        }
+    }
 }
