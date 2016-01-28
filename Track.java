@@ -75,7 +75,7 @@ public class Track
      */
     public String getDetails()
     {
-        return artist + ": " + title + "  (file: " + filename + ") Album: " + album + "Nº de reproducciones: " +count;
+        return artist + ": " + title + "  (file: " + filename + ") Album: " + album + " Nº de reproducciones: " +count;
     }
     
     /**

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * A class to hold details of audio tracks.
@@ -201,8 +202,11 @@ public class MusicOrganizer
      * Metodo para asignarle un album a una cancion del organizador.
      */
     public void setAlbumToTrack(int index, String newAlbum){
-        if(tracks.size() > 0) {
+        if(tracks.size() > 0 && index < tracks.size() && index > 0) {
             tracks.get(index).setAlbum(newAlbum);
+        }
+        else{
+            System.out.println("Error!");
         }
     }
 
@@ -215,6 +219,17 @@ public class MusicOrganizer
         }
         else{
             System.out.println("No se esta reproduciendo una canción.");
+        }
+    }
+    
+    /**
+     * Metodo para mostrar todos los detalles de las canciones através de un Iterador.
+     */
+    public void listAllTrackWithIterator(){
+        Iterator<Track> it = tracks.iterator();
+        while(it.hasNext()){
+            Track track = it.next();
+            System.out.println(track.getDetails());
         }
     }
 }
