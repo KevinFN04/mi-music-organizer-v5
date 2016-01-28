@@ -245,4 +245,17 @@ public class MusicOrganizer
             }
         }
     }
+    
+    /**
+     * Metodo para eliminar las canciones con un determinado titulo del organizador mediante un Iterador.
+     */
+    public void removeByTitle(String titulo){
+        Iterator<Track> it = tracks.iterator();
+        while(it.hasNext()){
+            Track track = it.next();
+            if (track.getTitle().contains(titulo)){
+                it.remove();
+            }
+        }
+    }
 }
